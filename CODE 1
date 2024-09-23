@@ -1,0 +1,68 @@
+Create the Bot:
+const { Client, GatewayIntentBits } = require('discord.js');
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
+
+const CHANNEL_ID = 'YOUR_CHANNEL_ID'; // Replace with your channel ID
+
+client.once('ready', () => {
+    console.log(`Logged in as ${client.user.tag}`);
+    setInterval(updateSlowmode, 60000); // Update every minute
+});
+
+async function updateSlowmode() {
+    const channel = await client.channels.fetch(CHANNEL_ID);
+    if (!channel || !channel.isText()) return;
+
+    const members = channel.members.filter(member => !member.user.bot);
+    const activeCount = members.size;
+
+    let slowmode;
+    if (activeCount < 10000) {
+        slowmode = 30; // 30 seconds
+    } else if (activeCount < 15000) {
+        slowmode = 60; // 60 seconds
+    } else {
+        slowmode = 120; // 120 seconds
+    }
+
+    if (channel.rateLimitPerconst { Client, GatewayIntentBits } = require('discord.js');
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
+
+const CHANNEL_ID = 'YOUR_CHANNEL_ID'; // Replace with your channel ID
+
+client.once('ready', () => {
+    console.log(`Logged in as ${client.user.tag}`);
+    setInterval(updateSlowmode, 60000); // Update every minute
+});
+
+async function updateSlowmode() {
+    const channel = await client.channels.fetch(CHANNEL_ID);
+    if (!channel || !channel.isText()) return;
+
+    const members = channel.members.filter(member => !member.user.bot);
+    const activeCount = members.size;
+
+    let slowmode;
+    if (activeCount < 10000) {
+        slowmode = 30; // 30 seconds
+    } else if (activeCount < 15000) {
+        slowmode = 60; // 60 seconds
+    } else {
+        slowmode = 120; // 120 seconds
+    }
+
+    if (channel.rateLimitPerUser !== slowmode) {
+        await channel.setRateLimitPerUser(slowmode);
+        console.log(`Set slowmode to ${slowmode} seconds.`);
+    }
+}
+
+client.login('YOUR_BOT_TOKEN'); // Replace with your bot token
+User !== slowmode) {
+        await channel.setRateLimitPerUser(slowmode);
+        console.log(`Set slowmode to ${slowmode} seconds.`);
+    }
+}
+
+client.login('YOUR_BOT_TOKEN'); // Replace with your bot token
+Run the Bot: Save the file and run it using:node yourfile.js
